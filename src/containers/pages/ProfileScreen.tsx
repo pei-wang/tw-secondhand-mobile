@@ -1,14 +1,30 @@
 import * as React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { connect } from 'react-redux'
+
+import { connect, DispatchProp } from 'react-redux'
 import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
 
-class OthersScreen extends React.Component<any, any> {
+import * as D from '../../definitions'
+import { userLogin } from '../../modules/user/actions'
+
+export type ProfileProps<S> = DispatchProp<S> & {
+  user: D.User
+}
+
+class ProfileScreen extends React.Component<ProfileProps<object>, object> {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Others Screen!</Text>
+         <Button
+          title="Login"
+          onPress={() => this.props.dispatch(userLogin({
+              username: 'admin',
+              password: 'admin',
+            }))
+          }
+        />
+        <Text>Profile .... {this.props.user.name ? `This is ${this.props.user.name}` : null} !</Text>
         <Button
           title="Go to Home"
           onPress={() => {
@@ -16,7 +32,7 @@ class OthersScreen extends React.Component<any, any> {
           }}
         />
         <Button
-          title="go back"
+          title="Go Back"
           onPress={() => {
             this.props.dispatch(NavigationActions.back())
           }}
@@ -35,4 +51,8 @@ const styles = StyleSheet.create({
   },
 })
 
-export default connect()(OthersScreen)
+export default connect(
+  state => ({
+    user: state.user,
+  })
+)(ProfileScreen)

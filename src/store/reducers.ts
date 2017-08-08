@@ -1,4 +1,4 @@
-import { reducer as nav } from './router'
+import { reducer as nav } from './Router'
 import app from '../modules/app/reducer';
 import user from '../modules/user/reducer';
 
