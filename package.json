@@ -1,0 +1,51 @@
+{
+  "name": "rn-ts-stencil",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "@types/enzyme": "^2.8.4",
+    "@types/node": "^8.0.19",
+    "enzyme": "^2.9.1",
+    "husky": "^0.14.3",
+    "jest-expo": "~19.0.0",
+    "jest-expo-ts": "^19.0.0",
+    "react-native-scripts": "1.1.0",
+    "react-native-typescript-transformer": "^1.1.0",
+    "react-test-renderer": "16.0.0-alpha.12",
+    "typescript": "^2.3.4"
+  },
+  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
+  "scripts": {
+    "start": "react-native-scripts start",
+    "eject": "react-native-scripts eject",
+    "android": "react-native-scripts android",
+    "ios": "react-native-scripts ios",
+    "test": "node node_modules/jest/bin/jest.js --watch"
+  },
+  "jest": {
+    "preset": "jest-expo-ts"
+  },
+  "dependencies": {
+    "@types/jest": "^20.0.2",
+    "@types/node": "^8.0.19",
+    "@types/react": "^15.6.1",
+    "@types/react-native": "^0.44.15",
+    "@types/react-navigation": "^1.0.16",
+    "@types/react-test-renderer": "^15.5.1",
+    "@types/redux-storage": "^4.0.7",
+    "expo": "^19.0.0",
+    "most": "^1.5.1",
+    "react": "16.0.0-alpha.12",
+    "react-native": "^0.46.1",
+    "react-navigation": "^1.0.0-beta.11",
+    "react-redux": "^5.0.5",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-most": "^0.5.2",
+    "redux-storage": "^4.1.2",
+    "redux-storage-decorator-filter": "^1.1.8",
+    "redux-storage-engine-reactnativeasyncstorage": "^1.0.5",
+    "redux-thunk": "^2.2.0",
+    "tslib": "^1.7.1"
+  }
+}
