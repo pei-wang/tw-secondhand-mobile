@@ -1,8 +1,8 @@
 import * as React from 'react'
 
 interface LinkProps {
-  to?: string;
-  children: React.Component;
+  to?: string
+  children: React.Component
 }
 
 const Link = (props: LinkProps) => {

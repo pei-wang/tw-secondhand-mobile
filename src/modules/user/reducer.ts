@@ -1,21 +1,21 @@
-import * as D from '../../definitions';
-import * as Redux from 'redux';
+import * as D from '../../definitions'
+import * as Redux from 'redux'
 
 const initialState: D.UserState = {
     name: '',
-};
+}
 
 const userReducer: Redux.Reducer<D.UserState> = (state: D.UserState, action: D.UserAction): D.UserState => {
-    state = state || initialState;
+    state = state || initialState
     switch (action.type) {
         case 'USER_LOGIN_SUC':
             return {
                 ...state,
                 ...action.payload,
-            };
+            }
         default:
     }
-    return state;
-};
+    return state
+}
 
-export default userReducer;
+export default userReducer

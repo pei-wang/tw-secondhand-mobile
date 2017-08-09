@@ -12,11 +12,20 @@ export type ProfileProps<S> = DispatchProp<S> & {
   user: D.User
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+})
+
 class ProfileScreen extends React.Component<ProfileProps<object>, object> {
   render() {
     return (
       <View style={styles.container}>
-         <Button
+        <Button
           title="Login"
           onPress={() => this.props.dispatch(userLogin({
               username: 'admin',
@@ -41,15 +50,6 @@ class ProfileScreen extends React.Component<ProfileProps<object>, object> {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
 
 export default connect(
   state => ({

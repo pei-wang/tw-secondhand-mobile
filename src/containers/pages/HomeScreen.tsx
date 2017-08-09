@@ -1,10 +1,19 @@
 import * as React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { connect } from 'react-redux'
+import { connect, DispatchProp } from 'react-redux'
 import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
 
-class HomeScreen extends React.Component<any, any> {
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+})
+
+class HomeScreen extends React.Component<DispatchProp<{}>, {}> {
   render() {
     return (
       <View style={styles.container}>
@@ -19,14 +28,5 @@ class HomeScreen extends React.Component<any, any> {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
 
 export default connect()(HomeScreen)

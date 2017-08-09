@@ -3,7 +3,7 @@ import {
   NavigationActions,
   TabNavigator,
 } from 'react-navigation'
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import HomeScreen from '../containers/pages/HomeScreen'
 import OthersScreen from '../containers/pages/OthersScreen'
@@ -49,11 +49,11 @@ const Route = TabNavigator({
       ),
     },
   },
-}, {
+},                         {
   initialRouteName: 'home',
   tabBarPosition: 'bottom',
-  animationEnabled: false,
-  swipeEnabled: false,
+  animationEnabled: true,
+  swipeEnabled: true,
 })
 
 const initialRouterAction = NavigationActions.init()
