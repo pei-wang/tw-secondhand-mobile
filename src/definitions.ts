@@ -1,5 +1,5 @@
 import * as Redux from 'redux'
-import * as Navigation from 'react-navigation'
+// import * as Navigation from 'react-navigation'
 
 // This file holds our app typings
 
@@ -35,6 +35,19 @@ export interface UserLoginAction extends GeneralAction {
 export interface UserAction extends GeneralAction {
     payload?: User | UserForLogin | UserProfile
 }
+
+export interface Product {
+    description?: string,
+    name: string,
+    price?: number,
+    owner?: object,
+    img?: string,
+    objectId?: string,
+    createdAt?: string,
+    updatedAt?: string,
+}
+
+export type ProductState = Product[]
 
 // STATES
 export type AppState = App

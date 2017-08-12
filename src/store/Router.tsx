@@ -12,24 +12,25 @@ import ProfileScreen from '../containers/pages/ProfileScreen'
 const Route = TabNavigator({
   home: {
     screen: HomeScreen,
+    showLabel: false,
     navigationOptions: {
       tabBarLabel: 'Home',
       tabBarIcon: ({ tintColor, focused }) => (
         <Ionicons
-          name={focused ? 'ios-home' : 'ios-home-outline'}
+          name={'ios-home-outline'}
           size={26}
           style={{ color: tintColor }}
         />
       ),
     },
   },
-  others: {
+  addProduct: {
     screen: OthersScreen,
     navigationOptions: {
-      tabBarLabel: 'Others',
+      tabBarLabel: 'add',
       tabBarIcon: ({ tintColor, focused }) => (
         <Ionicons
-          name={focused ? 'ios-settings' : 'ios-settings-outline'}
+          name={'ios-add-circle-outline'}
           size={26}
           style={{ color: tintColor }}
         />
@@ -42,7 +43,7 @@ const Route = TabNavigator({
       tabBarLabel: 'Profile',
       tabBarIcon: ({ tintColor, focused }) => (
         <Ionicons
-          name={focused ? 'ios-apps' : 'ios-apps-outline'}
+          name={'ios-person-outline'}
           size={26}
           style={{ color: tintColor }}
         />
@@ -54,6 +55,12 @@ const Route = TabNavigator({
   tabBarPosition: 'bottom',
   animationEnabled: true,
   swipeEnabled: true,
+  tabBarOptions: {
+    showLabel: false,
+    activeBackgroundColor: 'white',
+    activeTintColor: 'black',
+    inactiveBackgroundColor: '#fae05e',
+  },
 })
 
 const initialRouterAction = NavigationActions.init()
@@ -64,7 +71,7 @@ export const reducer = (state = initialState, action) => {
   let nextState
   // Simply return the original `state` if `nextState` is null or undefined.
   switch (action.type) {
-    
+
     default:
       nextState = Route.router.getStateForAction(action, state)
   }
