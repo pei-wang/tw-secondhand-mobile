@@ -2,11 +2,11 @@ import * as React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 import { connect, DispatchProp } from 'react-redux'
-import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
 
 import * as D from '../../definitions'
 import { userLogin } from '../../modules/user/actions'
+import Button from '../../components/Button/Button'
 
 export type ProfileProps<S> = DispatchProp<S> & {
   user: D.User
