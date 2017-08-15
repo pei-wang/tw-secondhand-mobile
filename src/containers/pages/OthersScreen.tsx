@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { connect, DispatchProp } from 'react-redux'
-import { Button } from 'react-native-elements'
+import { Button } from '../../components/Button/Button'
 import { NavigationActions } from 'react-navigation'
 
 const styles = StyleSheet.create({
@@ -18,18 +18,9 @@ class OthersScreen extends React.Component<DispatchProp<{}>, {}> {
     return (
       <View style={styles.container}>
         <Text>Others Screen!</Text>
-        <Button
-          title="Go to Home"
-          onPress={() => {
-            this.props.dispatch(NavigationActions.navigate({ routeName: 'home' }))
-          }}
-        />
-        <Button
-          title="go back"
-          onPress={() => {
-            this.props.dispatch(NavigationActions.back())
-          }}
-        />
+        <input placeholder='商品名称'/>
+        <input placeholder='售价￥'/>
+        <Button>
       </View>
     )
   }
