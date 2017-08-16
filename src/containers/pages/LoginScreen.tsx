@@ -4,6 +4,7 @@ import { connect, DispatchProp } from 'react-redux'
 import Header from '../../components/Header/index'
 import Button from '../../components/Button/Button'
 import Logo from '../../components/Logo/index'
+import { userLogin } from '../../modules/user/actions'
 
 const styles = StyleSheet.create({
   container: {
@@ -46,9 +47,11 @@ class LoginScreen extends React.Component<LoginProps<object>, LoginState> {
   }
 
   login() {
-    this.props.dispatch({
-      type: 'LOGIN'
-    })
+    console.log(111111)
+    this.props.dispatch(userLogin({
+      username: this.state.username,
+      password: this.state.password,
+    }))
   }
 
   register() {

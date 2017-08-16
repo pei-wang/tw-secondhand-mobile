@@ -10,7 +10,14 @@ export interface App {
 }
 
 export interface User {
-    name: string
+  username: string
+  isLogin?: boolean
+  sessionToken?: string
+}
+
+export interface UserForLoginResponse {
+  username: string
+  sessionToken: string
 }
 
 export interface UserProfile {
@@ -19,8 +26,8 @@ export interface UserProfile {
 }
 
 export interface UserForLogin {
-    username: string
-    password: string
+    username?: string
+    password?: string
 }
 
 // ACTION CREATORS
