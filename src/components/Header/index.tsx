@@ -2,7 +2,7 @@ import * as React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 export interface ProductItemProps {
-  title: string;
+  title: string
 }
 
 const Header = (props: ProductItemProps) => {
@@ -17,10 +17,12 @@ export default Header
 
 const style = StyleSheet.create({
   productItem: {
-    flex: 0.1,
+    flex: 0,
+    height: 60,
     justifyContent: 'center',
     alignItems: 'center',
   },
   title: {
+    fontSize: 20,
   }
 })
