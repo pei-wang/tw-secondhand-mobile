@@ -3,6 +3,12 @@ import { FlatList, StyleSheet, View } from 'react-native'
 import { connect, DispatchProp } from 'react-redux'
 import ProductItem from '../../components/ProductItem/index'
 import Header from '../../components/Header'
+import { fetchProducts } from '../../modules/product/actions'
+import * as D from '../../definitions'
+
+export type PageProps<S> = DispatchProp<S> & {
+  products: D.ProductState;
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -11,34 +17,18 @@ const styles = StyleSheet.create({
   },
 })
 
-class HomeScreen extends React.Component<DispatchProp<{}>, {}> {
+class HomeScreen extends React.Component<PageProps<object>> {
+
+  componentDidMount() {
+    this.props.dispatch(fetchProducts())
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Header title="精选"/>
         <FlatList
-          data={[
-            {
-              name: 'iphone 6s', price: '3000', img: 'http://cdn2.gsmarena.com/vv/pics/apple/apple-iphone-7-1.jpg',
-              status: '1', buyer: {username: 'pei'}
-            },
-            {
-              name: 'iphone 6s', price: '3000', img: 'http://cdn2.gsmarena.com/vv/pics/apple/apple-iphone-7-1.jpg',
-              status: '1', buyer: {username: 'pei'}
-            },
-            {
-              name: 'iphone 6s', price: '3000', img: 'http://cdn2.gsmarena.com/vv/pics/apple/apple-iphone-7-1.jpg',
-              status: '1', buyer: {username: 'pei'}
-            },
-            {
-              name: 'iphone 6s', price: '3000', img: 'http://cdn2.gsmarena.com/vv/pics/apple/apple-iphone-7-1.jpg',
-              status: '1', buyer: {username: 'pei'}
-            },
-            {
-              name: 'iphone 6s', price: '3000', img: 'http://cdn2.gsmarena.com/vv/pics/apple/apple-iphone-7-1.jpg',
-              status: '1', buyer: {username: 'pei'}
-            },
-          ]}
+          data={this.props.products}
           renderItem={({item}) => <ProductItem
             name={item.name}
             price={item.price}
@@ -52,4 +42,10 @@ class HomeScreen extends React.Component<DispatchProp<{}>, {}> {
   }
 }
 
-export default connect()(HomeScreen)
+const mapStateToProps = (state: D.RootState) => {
+  return {
+    products: state.products
+  }
+}
+
+export default connect(mapStateToProps)(HomeScreen)

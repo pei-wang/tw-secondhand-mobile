@@ -20,7 +20,7 @@ const ProductItem = (props: ProductItemProps) => {
     <View style={style.productItem}>
       <Image
         style={style.productImage}
-        source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+        source={{uri: props.img}}
       />
       <View style={style.productInfo}>
         <Text>{props.name}</Text>

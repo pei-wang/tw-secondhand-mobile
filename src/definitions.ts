@@ -56,5 +56,6 @@ export type UserState = User
 export interface RootState {
     user?: UserState
     app?: AppState
+    products?: ProductState
     nav?: {}
 }
