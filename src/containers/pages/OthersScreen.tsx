@@ -17,8 +17,9 @@ class OthersScreen extends React.Component<DispatchProp<{}>, {}> {
   render() {
     return (
       <View style={styles.container}>
-        <TextInput value='商品描述' style={{height: 40, width: 250, borderColor: 'gray', borderWidth: 1}}/>
-        <TextInput value='价格￥' style={{height: 40, width: 250, borderColor: 'gray', borderWidth: 1}}/>
+        <TextInput value='商品名称' style={{height: 40, width: 250, borderColor: 'gray', borderWidth: 1}}/>
+        <TextInput value='售价￥' style={{height: 40, width: 250, borderColor: 'gray', borderWidth: 1}}/>
+        <TextInput value='添加描述...' multiline={true} numberOfLines = {6} style={{height: 40, width: 250, borderColor: 'gray', borderWidth: 1}}/>
         <Button title='出售商品' onPress={() => {}}/>
       </View>
     )
