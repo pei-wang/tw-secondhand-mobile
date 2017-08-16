@@ -38,6 +38,13 @@ interface LoginState {
 }
 
 class LoginScreen extends React.Component<LoginProps<object>, LoginState> {
+
+  constructor(props: LoginProps<object>) {
+    super(props)
+    this.login = this.login.bind(this)
+    this.register = this.register.bind(this)
+  }
+
   login() {
     this.props.dispatch({
       type: 'LOGIN'
