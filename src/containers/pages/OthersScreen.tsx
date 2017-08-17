@@ -19,7 +19,7 @@ class OthersScreen extends React.Component<DispatchProp<{}>, {}> {
     const uploadDefault = require('../resources/uploading-archive.svg');
     return (
       <View style={styles.container}>
-        <Image source={uploadDefault} style={{width: 100, height: 100}} />
+        <Image source={uploadDefault} style={{width: 100, height: 100, backgroundColor: 'red', marginBottom: 20}} />
         <TextInput value='商品名称' style={textfieldStyle}/>
         <TextInput value='售价￥' style={textfieldStyle}/>
         <TextInput value='添加描述...' multiline={true} numberOfLines = {6}
