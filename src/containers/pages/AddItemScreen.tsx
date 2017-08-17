@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 
   textfield: {
     fontSize: 13,
-    color: 'lightgray',
+    color: 'gray',
     height: 40,
     width: 250,
     marginBottom: 20,
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 
   textArea: {
     fontSize: 13,
-    color: 'lightgray',
+    color: 'gray',
     height: 100,
     width: 250,
     marginBottom: 20,
@@ -50,9 +50,9 @@ class OthersScreen extends React.Component<DispatchProp<{}>, {}> {
           <Text style={{color: 'lightgray', fontSize: 20, marginBottom: 30}}>点击上传图片</Text>
           <Image source={uploadDefault} style={{width: 50, height: 50}} />
         </View>
-        <TextInput value='商品名称' style={styles.textfield}/>
-        <TextInput value='售价￥' style={styles.textfield}/>
-        <TextInput value='添加描述...' multiline={true} numberOfLines = {6}
+        <TextInput placeholder='商品名称' style={styles.textfield}/>
+        <TextInput placeholder='售价￥' style={styles.textfield}/>
+        <TextInput placeholder='添加描述...' multiline={true} numberOfLines = {6}
         style={styles.textArea}/>
         <Button title='出售商品' onPress={() => {}} textStyle={{color: 'black'}}/>
       </View>
