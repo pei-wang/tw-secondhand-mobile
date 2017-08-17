@@ -20,9 +20,25 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
-  textfield: {fontSize: 13, color: 'lightgray', height: 40, width: 250, marginBottom: 20, borderColor: '#A4A4A4', borderBottomWidth: 1},
+  textfield: {
+    fontSize: 13,
+    color: 'lightgray',
+    height: 40,
+    width: 250,
+    marginBottom: 20,
+    borderColor: '#A4A4A4',
+    borderBottomWidth: 1
+  },
 
-  textArea: {fontSize: 13, color: 'lightgray', height: 100, width: 250, marginBottom: 20, borderColor: '#A4A4A4', borderWidth: 1},
+  textArea: {
+    fontSize: 13,
+    color: 'lightgray',
+    height: 100,
+    width: 250,
+    marginBottom: 20,
+    borderColor: '#A4A4A4',
+    borderWidth: 1
+  },
 })
 
 class OthersScreen extends React.Component<DispatchProp<{}>, {}> {

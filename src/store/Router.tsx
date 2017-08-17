@@ -6,7 +6,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import HomeScreen from '../containers/pages/HomeScreen'
-import OthersScreen from '../containers/pages/OthersScreen'
+import AddItemScreen from '../containers/pages/AddItemScreen'
 // import ProfileScreen from '../containers/pages/ProfileScreen'
 import LoginScreen from '../containers/pages/LoginScreen'
 
@@ -26,7 +26,7 @@ const Route = TabNavigator({
     },
   },
   addProduct: {
-    screen: OthersScreen,
+    screen: AddItemScreen,
     navigationOptions: {
       tabBarLabel: 'add',
       tabBarIcon: ({ tintColor, focused }) => (
