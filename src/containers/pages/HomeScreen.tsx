@@ -29,6 +29,7 @@ class HomeScreen extends React.Component<PageProps<object>> {
         <Header title="精选"/>
         <FlatList
           data={this.props.products}
+          keyExtractor={(item, index) => item.id}
           renderItem={({item}) => <ProductItem
             name={item.name}
             price={item.price}
