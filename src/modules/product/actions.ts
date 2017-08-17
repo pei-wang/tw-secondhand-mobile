@@ -1,4 +1,4 @@
-import { fetchProduct, postProduct, uploadImage, buyProduct } from '../../apis/productApi'
+import { fetchProduct, postProduct, uploadImage, buyProduct, fetchBought } from '../../apis/productApi'
 import { fromPromise } from 'most'
 import { select, Epic } from 'redux-most'
 import { Product } from '../../definitions'
@@ -9,6 +9,13 @@ export const fetchProducts = () => {
     type: 'FETCH_PRODUCTS'
   }
 }
+
+export const fetchBoughtProducts = () => {
+  return {
+    type: 'FETCH_BOUGHT_PRODUCTS'
+  }
+}
+
 
 export const updateProducts = (products: Product[]) => {
   return {
@@ -44,6 +51,21 @@ const fetchProductEpic = (action$, store) => action$.thru(select('FETCH_PRODUCTS
     return updateProducts(results)
   })
 
+const fetchBoughtProductEpic = (action$, store) => action$.thru(select('FETCH_BOUGHT_PRODUCTS'))
+  .chain(() => {
+    store.dispatch({type: 'UPDATE_LOADER', payload: true})
+    return fromPromise(fetchBought().catch(() => {
+        store.dispatch({type: 'UPDATE_LOADER', payload: false})
+      }
+    ))
+  })
+  .map((results: D.ProductState) => {
+    store.dispatch({type: 'UPDATE_LOADER', payload: false})
+    return updateProducts(results)
+  })
+
+
+
 const uploadImageEpic = (action$, store) => action$.thru(select('UPLOAD_IMAGE'))
   .chain((action1$) => {
     store.dispatch({type: 'UPDATE_LOADER', payload: true})
@@ -76,4 +98,5 @@ export const epics: Array<Epic<D.GeneralAction>> = [
   uploadImageEpic,
   postProductEpic,
   buyProductEpic,
+  fetchBoughtProductEpic,
 ]

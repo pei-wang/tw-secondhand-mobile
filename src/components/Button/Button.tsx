@@ -12,7 +12,7 @@ export interface ButtonProps {
 
 const GeneralButton = (props: ButtonProps) => {
   return (
-    <View style={{width: 300}}>
+    <View style={{flex:1, width: 270}}>
       <Button
         buttonStyle={{backgroundColor: 'gold', borderRadius: 10, ...props.buttonStyle}}
         textStyle={{textAlign: 'center', ...props.textStyle}}
