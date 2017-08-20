@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
   profile: {
     width:300,
     height:150,
+    marginTop: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -77,7 +78,13 @@ const styles = StyleSheet.create({
   name: {
     marginRight: 100
   },
-  buttons: {height: 300},
+  buttons: {
+    height: 200,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    marginTop: 50,
+    marginBottom: 100,
+  },
 })
 
 
