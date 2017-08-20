@@ -1,7 +1,9 @@
 import * as React from 'react'
-import { StyleSheet, Text, TextInput, View, Image } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Image, ImagePickerIOS, TouchableHighlight } from 'react-native'
 import { connect, DispatchProp } from 'react-redux'
 import Button  from '../../components/Button/Button'
+import { uploadImageActionCreator } from '../../modules/product/actions'
+import ImagePicker from 'react-native-image-crop-picker';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,7 +15,7 @@ const styles = StyleSheet.create({
 
   uploader: {
     width: '100%',
-    height: 140,
+    height: 200,
     backgroundColor: '#F5F5F5',
     alignItems: 'center',
     justifyContent: 'center',
@@ -41,23 +43,46 @@ const styles = StyleSheet.create({
   },
 })
 
-class OthersScreen extends React.Component<DispatchProp<{}>, {}> {
+type AddItemProps<S> = DispatchProp<S> & {};
+
+class AddItemScreen extends React.Component<AddItemProps<object>, {}> {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      image: require('../resources/uploading-archive.png')
+    };
+  }
+
+  selectImage() {
+    ImagePickerIOS.openSelectDialog({}, (imageURI)=> {
+      this.setState({image: {uri: imageURI}});
+    }, ()=>{});
+  }
+
+  uploadImage() {
+    ImagePickerIOS.openSelectDialog({}, (imageURI)=> {
+      this.setState({image: {uri: imageURI}});
+    }, ()=>{});
+  }
+
   render() {
-    const uploadDefault = require('../resources/uploading-archive.png');
     return (
       <View style={styles.container}>
-        <View style={styles.uploader}>
-          <Text style={{color: 'lightgray', fontSize: 20, marginBottom: 30}}>点击上传图片</Text>
-          <Image source={uploadDefault} style={{width: 50, height: 50}} />
-        </View>
+        <TouchableHighlight style={styles.uploader} onPress={()=>{this.selectImage()}}>
+          <View>
+            <Text style={{color: 'lightgray', fontSize: 20, marginBottom: 30}}>点击上传图片</Text>
+            <Image source={this.state.image} style={{width: 100, height: 100}} />
+          </View>
+        </TouchableHighlight>
         <TextInput placeholder='商品名称' style={styles.textfield}/>
         <TextInput placeholder='售价￥' style={styles.textfield}/>
         <TextInput placeholder='添加描述...' multiline={true} numberOfLines = {6}
         style={styles.textArea}/>
-        <Button title='出售商品' onPress={() => {}} textStyle={{color: 'black'}}/>
+        <Button title='出售商品' onPress={()=>{this.uploadImage()}} textStyle={{color: 'black'}}/>
       </View>
     )
   }
 }
 
-export default connect()(OthersScreen)
+export default connect()(AddItemScreen)
