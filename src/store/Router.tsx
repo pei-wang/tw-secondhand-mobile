@@ -7,9 +7,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import HomeScreen from '../containers/pages/HomeScreen'
 import AddItemScreen from '../containers/pages/AddItemScreen'
-// import ProfileScreen from '../containers/pages/ProfileScreen'
 import LoginScreen from '../containers/pages/LoginScreen'
 import RegisterScreen from '../containers/pages/RegisterScreen'
+import ProfileNav from './ProfileNav'
 
 const MainScreenNavigator = TabNavigator({
   home: {
@@ -41,9 +41,10 @@ const MainScreenNavigator = TabNavigator({
     },
   },
   profile: {
-    screen: LoginScreen,
+    screen: ProfileNav,
     navigationOptions: {
       tabBarLabel: 'Profile',
+      header: null,
       tabBarIcon: ({tintColor, focused}) => (
         <Ionicons
           name={'ios-person-outline'}
