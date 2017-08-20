@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {
-  NavigationActions,
+  NavigationActions, StackNavigator,
   TabNavigator,
 } from 'react-navigation'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -10,17 +10,18 @@ import AddItemScreen from '../containers/pages/AddItemScreen'
 // import ProfileScreen from '../containers/pages/ProfileScreen'
 import LoginScreen from '../containers/pages/LoginScreen'
 
-const Route = TabNavigator({
+const MainScreenNavigator = TabNavigator({
   home: {
     screen: HomeScreen,
     showLabel: false,
     navigationOptions: {
       tabBarLabel: 'Home',
-      tabBarIcon: ({ tintColor, focused }) => (
+      title: '精选',
+      tabBarIcon: ({tintColor, focused}) => (
         <Ionicons
           name={'ios-home-outline'}
           size={26}
-          style={{ color: tintColor }}
+          style={{color: tintColor}}
         />
       ),
     },
@@ -29,11 +30,11 @@ const Route = TabNavigator({
     screen: AddItemScreen,
     navigationOptions: {
       tabBarLabel: 'add',
-      tabBarIcon: ({ tintColor, focused }) => (
+      tabBarIcon: ({tintColor, focused}) => (
         <Ionicons
           name={'ios-add-circle-outline'}
           size={26}
-          style={{ color: tintColor }}
+          style={{color: tintColor}}
         />
       ),
     },
@@ -42,16 +43,16 @@ const Route = TabNavigator({
     screen: LoginScreen,
     navigationOptions: {
       tabBarLabel: 'Profile',
-      tabBarIcon: ({ tintColor, focused }) => (
+      tabBarIcon: ({tintColor, focused}) => (
         <Ionicons
           name={'ios-person-outline'}
           size={26}
-          style={{ color: tintColor }}
+          style={{color: tintColor}}
         />
       ),
     },
   },
-},                         {
+}, {
   initialRouteName: 'home',
   tabBarPosition: 'bottom',
   animationEnabled: true,
@@ -62,6 +63,11 @@ const Route = TabNavigator({
     activeTintColor: 'black',
     inactiveBackgroundColor: '#fae05e',
   },
+})
+
+const Route = StackNavigator({
+  Home: {screen: MainScreenNavigator},
+  Login: {screen: LoginScreen}
 })
 
 const initialRouterAction = NavigationActions.init()

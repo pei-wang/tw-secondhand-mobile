@@ -1,7 +1,6 @@
 import { TextInput, View, StyleSheet } from 'react-native'
 import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
-import Header from '../../components/Header/index'
 import Button from '../../components/Button/Button'
 import Logo from '../../components/Logo/index'
 import { userLogin } from '../../modules/user/actions'
@@ -36,22 +35,39 @@ type LoginProps<S> = DispatchProp<S> & {}
 interface LoginState {
   username?: string
   password?: string
+
 }
 
 class LoginScreen extends React.Component<LoginProps<object>, LoginState> {
 
+  static navigationOptions = {
+    title: '请登录',
+  }
+
   constructor(props: LoginProps<object>) {
     super(props)
+    this.state = {
+      username: '',
+      password: '',
+    }
     this.login = this.login.bind(this)
     this.register = this.register.bind(this)
+    this.validateInput = this.validateInput.bind(this)
   }
 
   login() {
-    console.log(111111)
-    this.props.dispatch(userLogin({
-      username: this.state.username,
-      password: this.state.password,
-    }))
+    if (this.validateInput()) {
+      this.props.dispatch(
+        userLogin({
+          username: this.state.username,
+          password: this.state.password,
+        })
+      )
+    }
+  }
+
+  validateInput() {
+    return this.state.username && this.state.password
   }
 
   register() {
@@ -63,7 +79,6 @@ class LoginScreen extends React.Component<LoginProps<object>, LoginState> {
   render() {
     return (
       <View style={styles.container}>
-        <Header title="请登录"/>
         <View style={styles.loginContent}>
           <Logo/>
           <View style={styles.inputGroup}>
@@ -80,10 +95,15 @@ class LoginScreen extends React.Component<LoginProps<object>, LoginState> {
           </View>
           <View style={styles.buttonGroup}>
             <View style={{marginTop: 20}}>
-              <Button title="登录" onPress={this.login}/>
+              <Button
+                disabledStyle={this.validateInput() ? {backgroundColor: '#e9e6e6'} : {}}
+                disabled={!this.validateInput()}
+                title="登录"
+                onPress={this.login}
+                textStyle={{color: 'black'}}/>
             </View>
             <View style={{marginTop: 20}}>
-              <Button title="免费注册" onPress={this.register}/>
+              <Button title="免费注册" onPress={this.register} textStyle={{color: 'black'}}/>
             </View>
           </View>
         </View>

@@ -16,7 +16,6 @@ export const fetchBoughtProducts = () => {
   }
 }
 
-
 export const updateProducts = (products: Product[]) => {
   return {
     type: 'UPDATE_PRODUCTS',
@@ -63,8 +62,6 @@ const fetchBoughtProductEpic = (action$, store) => action$.thru(select('FETCH_BO
     store.dispatch({type: 'UPDATE_LOADER', payload: false})
     return updateProducts(results)
   })
-
-
 
 const uploadImageEpic = (action$, store) => action$.thru(select('UPLOAD_IMAGE'))
   .chain((action1$) => {

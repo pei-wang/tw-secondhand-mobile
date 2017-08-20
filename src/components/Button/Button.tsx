@@ -8,16 +8,21 @@ export interface ButtonProps {
   buttonStyle?: object
   textStyle?: object
   onPress: () => void
+  disabled?: boolean
+  disabledStyle?: object
 }
 
 const GeneralButton = (props: ButtonProps) => {
+  const {disabled, disabledStyle} = props
   return (
-    <View style={{flex:1, width: 270}}>
+    <View style={{flex: 0, width: 270}}>
       <Button
         buttonStyle={{backgroundColor: 'gold', borderRadius: 10, ...props.buttonStyle}}
         textStyle={{textAlign: 'center', ...props.textStyle}}
         title={props.title}
         onPress={props.onPress}
+        disabled={disabled}
+        disabledStyle={disabledStyle}
       />
     </View>
   )

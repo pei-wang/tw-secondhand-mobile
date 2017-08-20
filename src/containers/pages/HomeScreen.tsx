@@ -2,7 +2,6 @@ import * as React from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { connect, DispatchProp } from 'react-redux'
 import ProductItem from '../../components/ProductItem/index'
-import Header from '../../components/Header'
 import { fetchProducts } from '../../modules/product/actions'
 import * as D from '../../definitions'
 
@@ -26,7 +25,6 @@ class HomeScreen extends React.Component<PageProps<object>> {
   render() {
     return (
       <View style={styles.container}>
-        <Header title="精选"/>
         <FlatList
           data={this.props.products}
           keyExtractor={(item, index) => item.id}
