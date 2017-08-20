@@ -8,6 +8,7 @@ import {
   BUY_PRODUCT_API
 } from './urls'
 import { fetchJson } from './utils'
+import { AsyncStorage } from 'react-native'
 
 export const fetchProduct = (): Promise<D.Product[]> => fetchJson(FETCH_PRODUCTS_API, {})
 
@@ -34,16 +35,22 @@ export const buyProduct = (productId: string) => {
   })
 }
 
-export const fetchBought = (): Promise<D.Product[]> => {
+export const fetchBought = async (): Promise<D.Product[]> => {
   return fetchJson(FETCH_BOUGHT_API, {
       method: 'GET',
+      headers: {
+        'sessionToken': await AsyncStorage.getItem('sessionToken')
+      }
     }
   )
 }
 
-export const fetchOwned = (): Promise<D.Product[]> => {
+export const fetchOwned = async (): Promise<D.Product[]> => {
   return fetchJson(FETCH_OWNED_API, {
       method: 'GET',
+      headers: {
+        'sessionToken': await AsyncStorage.getItem('sessionToken')
+      }
     }
   )
 }
