@@ -61,9 +61,7 @@ class AddItemScreen extends React.Component<AddItemProps<object>, {}> {
   }
 
   uploadImage() {
-    ImagePickerIOS.openSelectDialog({}, (imageURI)=> {
-      this.setState({image: {uri: imageURI}});
-    }, ()=>{});
+    this.props.dispatch(uploadImageActionCreator(this.state.image));
   }
 
   render() {
