@@ -1,4 +1,4 @@
-import { fetchProduct, postProduct, uploadImage, buyProduct, fetchBought } from '../../apis/productApi'
+import { fetchProduct, postProduct, uploadImage, buyProduct, fetchBought, fetchOwned } from '../../apis/productApi'
 import { fromPromise } from 'most'
 import { select, Epic } from 'redux-most'
 import { Product } from '../../definitions'
@@ -13,6 +13,12 @@ export const fetchProducts = () => {
 export const fetchBoughtProducts = () => {
   return {
     type: 'FETCH_BOUGHT_PRODUCTS'
+  }
+}
+
+export const fetchOwnedProducts = () => {
+  return {
+    type: 'FETCH_OWNED_PRODUCTS'
   }
 }
 
@@ -63,6 +69,21 @@ const fetchBoughtProductEpic = (action$, store) => action$.thru(select('FETCH_BO
     return updateProducts(results)
   })
 
+  const fetchOwnedProductEpic = (action$, store) => action$.thru(select('FETCH_OWNED_PRODUCTS'))
+  .chain(() => {
+    store.dispatch({type: 'UPDATE_LOADER', payload: true})
+    return fromPromise(fetchOwned().catch(() => {
+        store.dispatch({type: 'UPDATE_LOADER', payload: false})
+      }
+    ))
+  })
+  .map((results: D.ProductState) => {
+    store.dispatch({type: 'UPDATE_LOADER', payload: false})
+    return updateProducts(results)
+  })
+
+  
+
 const uploadImageEpic = (action$, store) => action$.thru(select('UPLOAD_IMAGE'))
   .chain((action1$) => {
     store.dispatch({type: 'UPDATE_LOADER', payload: true})
@@ -96,4 +117,5 @@ export const epics: Array<Epic<D.GeneralAction>> = [
   postProductEpic,
   buyProductEpic,
   fetchBoughtProductEpic,
+  fetchOwnedProductEpic,
 ]

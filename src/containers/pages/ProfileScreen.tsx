@@ -5,13 +5,51 @@ import { connect, DispatchProp } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 
 import * as D from '../../definitions'
-import { fetchBoughtProducts } from '../../modules/product/actions'
+import { fetchBoughtProducts, fetchOwnedProducts } from '../../modules/product/actions'
 import Button from '../../components/Button/Button'
-import Header from '../../components/Header'
 import Logo from '../../components/Logo/index'
 
 export type ProfileProps<S> = DispatchProp<S> & {
   user: D.User
+}
+
+class ProfileScreen extends React.Component<ProfileProps<object>, object> {
+  onBoughtProductPressed(){
+    this.props.dispatch(NavigationActions.navigate({ routeName: 'bought' }))
+    this.props.dispatch(fetchBoughtProducts());
+  }
+  onOwnedProductPressed(){
+    this.props.dispatch(NavigationActions.navigate({ routeName: 'owned' }))
+    this.props.dispatch(fetchOwnedProducts());
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.profile}>
+        <Logo style={styles.logo}/>
+          <View style={styles.name}>
+            <Text>{this.props.user.username}</Text>
+          </View>
+        </View>
+        <View style={styles.buttons}>
+          <Button
+            title="已买宝贝"
+            onPress={() => this.onBoughtProductPressed()}
+          />
+          <Button
+            title="出售宝贝"
+            onPress={() => this.onOwnedProductPressed()}
+          />
+          <Button
+            title="退出登录"
+            onPress={() => {
+              this.props.dispatch(NavigationActions.back())
+            }}
+          />
+        </View>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -42,40 +80,6 @@ const styles = StyleSheet.create({
   buttons: {height: 300},
 })
 
-class ProfileScreen extends React.Component<ProfileProps<object>, object> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Header title="个人信息"/>
-        <View style={styles.profile}>
-        <Logo style={styles.logo}/>
-          <View style={styles.name}>
-            <Text>{this.props.user.username}</Text>
-          </View>
-        </View>
-        <View style={styles.buttons}>
-          <Button
-            title="已买宝贝"
-            onPress={() => this.props.dispatch(fetchBoughtProducts())
-            }
-          />
-          <Button
-            title="出售宝贝"
-            onPress={() => {
-              this.props.dispatch(NavigationActions.navigate({ routeName: 'home' }))
-            }}
-          />
-          <Button
-            title="退出登录"
-            onPress={() => {
-              this.props.dispatch(NavigationActions.back())
-            }}
-          />
-        </View>
-      </View>
-    )
-  }
-}
 
 export default connect(
   state => ({
