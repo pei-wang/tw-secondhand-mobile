@@ -4,6 +4,7 @@ import { connect, DispatchProp } from 'react-redux'
 import Button from '../../components/Button/Button'
 import Logo from '../../components/Logo/index'
 import { userLogin } from '../../modules/user/actions'
+import { NavigationActions, NavigationNavigatorProps } from 'react-navigation'
 
 const styles = StyleSheet.create({
   container: {
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
   }
 })
 
-type LoginProps<S> = DispatchProp<S> & {}
+type LoginProps<S> = DispatchProp<S> & NavigationNavigatorProps<S> & {}
 
 interface LoginState {
   username?: string
@@ -71,9 +72,9 @@ class LoginScreen extends React.Component<LoginProps<object>, LoginState> {
   }
 
   register() {
-    this.props.dispatch({
-      type: 'REGISTER'
-    })
+    this.props.navigation.dispatch(NavigationActions.navigate({
+      routeName: 'Register'
+    }))
   }
 
   render() {
@@ -84,12 +85,14 @@ class LoginScreen extends React.Component<LoginProps<object>, LoginState> {
           <View style={styles.inputGroup}>
             <TextInput
               placeholder="用户名"
+              autoCapitalize="none"
               style={styles.textInput}
               onChangeText={(username) => this.setState({username})}
             />
             <TextInput
               placeholder="密码"
               style={styles.textInput}
+              secureTextEntry={true}
               onChangeText={(password) => this.setState({password})}
             />
           </View>

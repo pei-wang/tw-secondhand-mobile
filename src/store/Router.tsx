@@ -9,6 +9,7 @@ import HomeScreen from '../containers/pages/HomeScreen'
 import AddItemScreen from '../containers/pages/AddItemScreen'
 // import ProfileScreen from '../containers/pages/ProfileScreen'
 import LoginScreen from '../containers/pages/LoginScreen'
+import RegisterScreen from '../containers/pages/RegisterScreen'
 
 const MainScreenNavigator = TabNavigator({
   home: {
@@ -67,7 +68,8 @@ const MainScreenNavigator = TabNavigator({
 
 const Route = StackNavigator({
   Home: {screen: MainScreenNavigator},
-  Login: {screen: LoginScreen}
+  Login: {screen: LoginScreen},
+  Register: {screen: RegisterScreen}
 })
 
 const initialRouterAction = NavigationActions.init()
