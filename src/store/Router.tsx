@@ -31,6 +31,7 @@ const MainScreenNavigator = TabNavigator({
     screen: AddItemScreen,
     navigationOptions: {
       tabBarLabel: 'add',
+      title: '发布宝贝',
       tabBarIcon: ({tintColor, focused}) => (
         <Ionicons
           name={'ios-add-circle-outline'}

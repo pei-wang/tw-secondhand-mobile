@@ -13,6 +13,7 @@ export interface User {
   username: string
   isLogin?: boolean
   sessionToken?: string
+  registerSuccess?: boolean
 }
 
 export interface UserForLoginResponse {

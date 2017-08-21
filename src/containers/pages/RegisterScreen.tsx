@@ -3,6 +3,8 @@ import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import Button from '../../components/Button/Button'
 import Logo from '../../components/Logo/index'
+import { userSignUp } from '../../modules/user/actions'
+import { NavigationActions, NavigationNavigatorProps } from 'react-navigation'
 
 const styles = StyleSheet.create({
   container: {
@@ -34,7 +36,9 @@ const styles = StyleSheet.create({
   }
 })
 
-type LoginProps<S> = DispatchProp<S> & {}
+type LoginProps<S> = DispatchProp<S> & NavigationNavigatorProps<S> & {
+  registerSuccess: boolean
+}
 
 interface LoginState {
   username?: string
@@ -79,13 +83,17 @@ class RegisterScreen extends React.Component<LoginProps<object>, LoginState> {
 
   register() {
     if (this.validateInput()) {
-      this.props.dispatch({
-        type: 'REGISTER'
-      })
+      this.props.dispatch(userSignUp({
+        username: this.state.username,
+        password: this.state.password,
+      }))
     }
   }
 
   render() {
+    if (this.props.registerSuccess) {
+      this.props.navigation.dispatch(NavigationActions.back())
+    }
     return (
       <View style={styles.container}>
         <View style={styles.loginContent}>
@@ -122,4 +130,10 @@ class RegisterScreen extends React.Component<LoginProps<object>, LoginState> {
   }
 }
 
-export default connect()(RegisterScreen)
+const mapStateToProps = (state) => {
+  return {
+    registerSuccess: state.user.registerSuccess,
+  }
+}
+
+export default connect(mapStateToProps)(RegisterScreen)

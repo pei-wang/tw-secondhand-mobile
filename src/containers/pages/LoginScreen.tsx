@@ -31,12 +31,13 @@ const styles = StyleSheet.create({
   }
 })
 
-type LoginProps<S> = DispatchProp<S> & NavigationNavigatorProps<S> & {}
+type LoginProps<S> = DispatchProp<S> & NavigationNavigatorProps<S> & {
+  isLogin?: boolean
+}
 
 interface LoginState {
   username?: string
   password?: string
-
 }
 
 class LoginScreen extends React.Component<LoginProps<object>, LoginState> {
@@ -78,6 +79,9 @@ class LoginScreen extends React.Component<LoginProps<object>, LoginState> {
   }
 
   render() {
+    if (this.props.isLogin) {
+      this.props.navigation.dispatch(NavigationActions.back())
+    }
     return (
       <View style={styles.container}>
         <View style={styles.loginContent}>
@@ -115,4 +119,10 @@ class LoginScreen extends React.Component<LoginProps<object>, LoginState> {
   }
 }
 
-export default connect()(LoginScreen)
+const mapStateToProps = (state) => {
+  return {
+    isLogin: state.user.isLogin,
+  }
+}
+
+export default connect(mapStateToProps)(LoginScreen)

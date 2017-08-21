@@ -11,11 +11,8 @@ export const login = (user): Promise<D.UserForLoginResponse> => fetchJson(USER_L
   body: JSON.stringify(user)
 })
 
-export const logout = async (): Promise<null> => fetchJson(USER_LOGOUT_API, {
+export const logout = async(): Promise<null> => fetchJson(USER_LOGOUT_API, {
   method: 'GET',
-  headers: {
-    'sessionToken': await AsyncStorage.getItem('sessionToken')
-  },
 })
 
 export const signUp = (user): Promise<D.User> => fetchJson(USER_SIGN_UP_API, {

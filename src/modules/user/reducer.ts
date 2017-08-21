@@ -4,6 +4,7 @@ import * as Redux from 'redux'
 const initialState: D.UserState = {
   username: '',
   isLogin: false,
+  registerSuccess: false,
 }
 
 const userReducer: Redux.Reducer<D.UserState> = (state: D.UserState, action: D.UserAction): D.UserState => {
@@ -20,7 +21,13 @@ const userReducer: Redux.Reducer<D.UserState> = (state: D.UserState, action: D.U
         ...state,
         username: '',
         sessionToken: '',
-        isLogin: false
+        isLogin: false,
+        registerSuccess: false,
+      }
+    case 'USER_SIGN_UP_SUC':
+      return {
+        ...state,
+        registerSuccess: true,
       }
     default:
   }

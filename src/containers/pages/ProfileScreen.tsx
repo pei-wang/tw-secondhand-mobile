@@ -8,25 +8,29 @@ import * as D from '../../definitions'
 import { fetchBoughtProducts, fetchOwnedProducts } from '../../modules/product/actions'
 import Button from '../../components/Button/Button'
 import Logo from '../../components/Logo/index'
+import { userLogout } from '../../modules/user/actions'
+import { CheckLoginWrapper } from '../layout/CheckLogin'
 
 export type ProfileProps<S> = DispatchProp<S> & {
   user: D.User
 }
 
 class ProfileScreen extends React.Component<ProfileProps<object>, object> {
-  onBoughtProductPressed(){
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'bought' }))
-    this.props.dispatch(fetchBoughtProducts());
+  onBoughtProductPressed() {
+    this.props.dispatch(NavigationActions.navigate({routeName: 'bought'}))
+    this.props.dispatch(fetchBoughtProducts())
   }
-  onOwnedProductPressed(){
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'owned' }))
-    this.props.dispatch(fetchOwnedProducts());
+
+  onOwnedProductPressed() {
+    this.props.dispatch(NavigationActions.navigate({routeName: 'owned'}))
+    this.props.dispatch(fetchOwnedProducts())
   }
+
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.profile}>
-        <Logo style={styles.logo}/>
+          <Logo style={styles.logo}/>
           <View style={styles.name}>
             <Text>{this.props.user.username}</Text>
           </View>
@@ -43,6 +47,7 @@ class ProfileScreen extends React.Component<ProfileProps<object>, object> {
           <Button
             title="退出登录"
             onPress={() => {
+              this.props.dispatch(userLogout())
               this.props.dispatch(NavigationActions.back())
             }}
           />
@@ -61,8 +66,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   profile: {
-    width:300,
-    height:150,
+    width: 300,
+    height: 150,
     marginTop: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -87,9 +92,8 @@ const styles = StyleSheet.create({
   },
 })
 
-
-export default connect(
+export default CheckLoginWrapper(connect(
   state => ({
     user: state.user,
   })
-)(ProfileScreen)
+)(ProfileScreen))
