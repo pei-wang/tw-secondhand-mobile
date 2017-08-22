@@ -29,6 +29,20 @@ export const updateProducts = (products: Product[]) => {
   }
 }
 
+export const updateBought = (products: Product[]) => {
+  return {
+    type: 'UPDATE_BOUGHT',
+    payload: products,
+  }
+}
+
+export const updateOwned = (products: Product[]) => {
+  return {
+    type: 'UPDATE_OWNED',
+    payload: products,
+  }
+}
+
 export const uploadImageActionCreator = (file) => {
   return {
     type: 'UPLOAD_IMAGE',
@@ -66,7 +80,7 @@ const fetchBoughtProductEpic = (action$, store) => action$.thru(select('FETCH_BO
   })
   .map((results: D.ProductState) => {
     store.dispatch({type: 'UPDATE_LOADER', payload: false})
-    return updateProducts(results)
+    return updateBought(results)
   })
 
   const fetchOwnedProductEpic = (action$, store) => action$.thru(select('FETCH_OWNED_PRODUCTS'))
@@ -79,7 +93,7 @@ const fetchBoughtProductEpic = (action$, store) => action$.thru(select('FETCH_BO
   })
   .map((results: D.ProductState) => {
     store.dispatch({type: 'UPDATE_LOADER', payload: false})
-    return updateProducts(results)
+    return updateOwned(results)
   })
 
   

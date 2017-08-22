@@ -65,5 +65,7 @@ export interface RootState {
     user?: UserState
     app?: AppState
     products?: ProductState
+    orders?: ProductState
+    owned?: ProductState
     nav?: {}
 }

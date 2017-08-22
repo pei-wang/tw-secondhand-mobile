@@ -2,20 +2,20 @@ import {
   StackNavigator,
 } from 'react-navigation'
 
-import HomeScreen from '../containers/pages/HomeScreen'
+import BoughtScreen from '../containers/pages/BoughtScreen'
+import OwnedScreen from '../containers/pages/OwnedScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
-// import LoginScreen from '../containers/pages/LoginScreen'
 
 const Route = StackNavigator({
   bought: {
-    screen: HomeScreen,
+    screen: BoughtScreen,
     showLabel: false,
     navigationOptions: {
       title: '已买宝贝',
     },
   },
   owned: {
-    screen: HomeScreen,
+    screen: OwnedScreen,
     showLabel: false,
     navigationOptions: {
       title: '出售宝贝',

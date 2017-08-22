@@ -5,7 +5,6 @@ import { connect, DispatchProp } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 
 import * as D from '../../definitions'
-import { fetchBoughtProducts, fetchOwnedProducts } from '../../modules/product/actions'
 import Button from '../../components/Button/Button'
 import Logo from '../../components/Logo/index'
 import { userLogout } from '../../modules/user/actions'
@@ -18,12 +17,10 @@ export type ProfileProps<S> = DispatchProp<S> & {
 class ProfileScreen extends React.Component<ProfileProps<object>, object> {
   onBoughtProductPressed() {
     this.props.dispatch(NavigationActions.navigate({routeName: 'bought'}))
-    this.props.dispatch(fetchBoughtProducts())
   }
 
   onOwnedProductPressed() {
     this.props.dispatch(NavigationActions.navigate({routeName: 'owned'}))
-    this.props.dispatch(fetchOwnedProducts())
   }
 
   render() {
