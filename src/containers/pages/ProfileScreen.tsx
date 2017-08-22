@@ -16,11 +16,19 @@ export type ProfileProps<S> = DispatchProp<S> & {
 
 class ProfileScreen extends React.Component<ProfileProps<object>, object> {
   onBoughtProductPressed() {
-    this.props.dispatch(NavigationActions.navigate({routeName: 'bought'}))
+    if (this.props.user.isLogin) {
+      this.props.dispatch(NavigationActions.navigate({routeName: 'bought'}))
+    } else {
+      this.props.dispatch(NavigationActions.navigate({routeName: 'Login'}))
+    }
   }
 
   onOwnedProductPressed() {
-    this.props.dispatch(NavigationActions.navigate({routeName: 'owned'}))
+    if (this.props.user.isLogin) {
+      this.props.dispatch(NavigationActions.navigate({routeName: 'owned'}))
+    } else {
+      this.props.dispatch(NavigationActions.navigate({routeName: 'Login'}))
+    }
   }
 
   render() {
@@ -42,10 +50,14 @@ class ProfileScreen extends React.Component<ProfileProps<object>, object> {
             onPress={() => this.onOwnedProductPressed()}
           />
           <Button
-            title="退出登录"
+            title={this.props.user.isLogin ? '退出登录' : '登录'}
             onPress={() => {
-              this.props.dispatch(userLogout())
-              this.props.dispatch(NavigationActions.back())
+              if (this.props.user.isLogin) {
+                this.props.dispatch(userLogout())
+                this.props.dispatch(NavigationActions.back())
+              } else {
+                this.props.dispatch(NavigationActions.navigate({routeName: 'Login'}))
+              }
             }}
           />
         </View>
