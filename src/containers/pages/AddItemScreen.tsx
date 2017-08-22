@@ -3,7 +3,6 @@ import { StyleSheet, Text, TextInput, View, Image, ImagePickerIOS, TouchableHigh
 import { connect, DispatchProp } from 'react-redux'
 import Button  from '../../components/Button/Button'
 import { uploadImageActionCreator } from '../../modules/product/actions'
-import ImagePicker from 'react-native-image-crop-picker';
 
 const styles = StyleSheet.create({
   container: {
@@ -56,7 +55,11 @@ class AddItemScreen extends React.Component<AddItemProps<object>, {}> {
 
   selectImage() {
     ImagePickerIOS.openSelectDialog({}, (imageURI)=> {
-      this.setState({image: {uri: imageURI}});
+      const extIdx = imageURI.indexOf('ext=');
+      const ext = imageURI.slice(extIdx+'ext='.length);
+      const idIdx = imageURI.indexOf('id=');
+      const fileName = imageURI.slice(idIdx+3, extIdx-1);
+      this.setState({image: {uri: imageURI, name: fileName+'.'+ext, type: 'image/'+ext}});
     }, ()=>{});
   }
 
