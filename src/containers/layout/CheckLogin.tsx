@@ -12,15 +12,25 @@ interface CheckLoginProps {
 class CheckLogin extends React.Component<CheckLoginProps> {
 
   componentWillReceiveProps(nextProps) {
-    const {isLogin, nav: originalNav} = this.props
-    const {nav} = nextProps
-    if (!isLogin && nav.routes[0].index !== originalNav.routes[0].index) {
+    const { isLogin, nav: originalNav } = this.props
+    const { nav } = nextProps
+    const shouldUpdate = nav.routes[0].index !== originalNav.routes[0].index
+    const routeName = this._getCurrentRouteName(nav)
+    console.log("hello! "+routeName)
+    
+    if (!isLogin && shouldUpdate && (routeName === 'profile' ||routeName === 'addProduct') ) {
       this.props.dispatch(NavigationActions.navigate({
         routeName: 'Login'
       }))
     }
   }
-
+  _getCurrentRouteName(navState) {
+    if (navState.hasOwnProperty('index')) {
+        return this._getCurrentRouteName(navState.routes[navState.index])
+    } else {
+        return navState.routeName;
+    }
+  }
   constructor() {
     super()
   }
