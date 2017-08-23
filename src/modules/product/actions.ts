@@ -4,6 +4,12 @@ import { select, Epic } from 'redux-most'
 import { Product } from '../../definitions'
 import * as D from '../../definitions'
 
+export const buyAProduct = () => {
+  return {
+    type: 'BUY_PRODUCT'
+  }
+}
+
 export const fetchProducts = () => {
   return {
     type: 'FETCH_PRODUCTS'
