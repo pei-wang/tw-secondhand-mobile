@@ -48,7 +48,7 @@ export interface Product {
     description?: string,
     name: string,
     price?: number,
-    owner?: object,
+    owner?: {username: string, objectId: string};
     img?: string,
     objectId?: string,
     createdAt?: string,

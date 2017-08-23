@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
 
 interface ProductListProps {
     products: D.ProductState
+    onPress?: (id) => void 
 }
 
 const ProductList = (props: ProductListProps) => {
@@ -26,8 +27,8 @@ const ProductList = (props: ProductListProps) => {
             name={item.name}
             price={item.price}
             img={item.img}
-            status={item.status}
-            buyer={item.buyer}
+            owner={item.buyer}
+            onPress={() => props.onPress(item.objectId)}
           />}
         />
       </View>

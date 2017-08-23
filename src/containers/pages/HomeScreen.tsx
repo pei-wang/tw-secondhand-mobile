@@ -2,6 +2,7 @@ import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import ProductList from '../../components/ProductList/index'
 import { fetchProducts } from '../../modules/product/actions'
+import { NavigationActions } from 'react-navigation'
 import * as D from '../../definitions'
 
 export type PageProps<S> = DispatchProp<S> & {
@@ -9,15 +10,16 @@ export type PageProps<S> = DispatchProp<S> & {
 }
 
 class HomeScreen extends React.Component<PageProps<object>> {
-
-  componentDidMount() {
+  componentDidMount() { 
     this.props.dispatch(fetchProducts());
+  }
+  onPress(id){
+    this.props.dispatch(NavigationActions.navigate({routeName: 'Detail',params: { id }}))
   }
 
   render() {
-    console.log("hello!render!")
     return (
-      <ProductList products={this.props.products}/>
+      <ProductList products={this.props.products} onPress={(id) => {this.onPress(id)}}/>
     )
   }
 }

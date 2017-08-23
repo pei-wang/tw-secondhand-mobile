@@ -18,7 +18,7 @@ class CheckLogin extends React.Component<CheckLoginProps> {
     const routeName = this._getCurrentRouteName(nav)
     console.log("hello! "+routeName)
     
-    if (!isLogin && shouldUpdate && (routeName === 'profile' ||routeName === 'addProduct') ) {
+    if (!isLogin && shouldUpdate && (routeName === 'profile' ||routeName === 'addProduct')) {
       this.props.dispatch(NavigationActions.navigate({
         routeName: 'Login'
       }))

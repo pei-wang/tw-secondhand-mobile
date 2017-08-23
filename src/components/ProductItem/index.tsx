@@ -1,22 +1,15 @@
 import * as React from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
-
+import { StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native'
+import * as D from '../../definitions'
 const buyerIcon = require('../../containers/resources/buyer.png')
 
-export interface ProductItemProps {
-  name?: string
-  img?: string
-  status?: number
-  price?: number
-  buyer?: {
-    objectId?: string
-    username?: string
-  }
-  id?: number
+export type ProductProps = D.Product & {
+  onPress: ()=>void
 }
 
-const ProductItem = (props: ProductItemProps) => {
+const ProductItem = (props: ProductProps) => {
   return (
+    <TouchableHighlight onPress={props.onPress} underlayColor="gold">
     <View style={style.productItem}>
       <Image
         style={style.productImage}
@@ -26,17 +19,19 @@ const ProductItem = (props: ProductItemProps) => {
         <Text>{props.name}</Text>
         <Text>￥{props.price}</Text>
         {
-          props.buyer ?
+          props.owner ?
             <View style={style.buyer}>
               <Image
                 style={{width: 20, height: 20}}
                 source={buyerIcon}
               />
-              <Text>{props.buyer.username}</Text>
+              <Text>{props.owner.username}</Text>
             </View> : <Text/>
         }
+      
       </View>
     </View>
+    </TouchableHighlight>
   )
 }
 

@@ -9,6 +9,7 @@ import HomeScreen from '../containers/pages/HomeScreen'
 import AddItemScreen from '../containers/pages/AddItemScreen'
 import LoginScreen from '../containers/pages/LoginScreen'
 import RegisterScreen from '../containers/pages/RegisterScreen'
+import ProductScreen from '../containers/pages/ProductScreen'
 import ProfileNav from './ProfileNav'
 
 const MainScreenNavigator = TabNavigator({
@@ -70,9 +71,16 @@ const MainScreenNavigator = TabNavigator({
 
 const Route = StackNavigator({
   Home: {screen: MainScreenNavigator},
-  Login: {screen: LoginScreen},
-  Register: {screen: RegisterScreen}
-})
+  Login: {
+    screen: LoginScreen,
+  },
+  Register: {screen: RegisterScreen},
+  Detail: {screen: ProductScreen},
+},
+  {  
+  mode: 'modal',
+}
+)
 
 const initialRouterAction = NavigationActions.init()
 
