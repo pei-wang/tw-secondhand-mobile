@@ -4,9 +4,10 @@ import { select, Epic } from 'redux-most'
 import { Product } from '../../definitions'
 import * as D from '../../definitions'
 
-export const buyAProduct = () => {
+export const buyProducts = (productId:string) => {
   return {
-    type: 'BUY_PRODUCT'
+    type: 'BUY_PRODUCT',
+    payload: productId,
   }
 }
 

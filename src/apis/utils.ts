@@ -2,7 +2,7 @@ import { AsyncStorage } from 'react-native'
 
 export const fetchJson = async (url, option) => {
 
-  console.log(JSON.stringify(option))
+  console.log(url+"hello!")
   return fetch(url, {
     ...option,
     headers: {
@@ -15,7 +15,6 @@ export const fetchJson = async (url, option) => {
       if (response.status < 400) {
         return response.json()
       }
-      console.log(response)
       return response.json()
     })
 }

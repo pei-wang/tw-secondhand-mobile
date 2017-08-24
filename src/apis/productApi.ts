@@ -29,6 +29,7 @@ export const postProduct = (createProduct: D.Product) => {
 }
 
 export const buyProduct = (productId: string) => {
+  console.log(BUY_PRODUCT_API + productId)
   return fetchJson(BUY_PRODUCT_API + productId, {
     method: 'PUT',
   })
