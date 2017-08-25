@@ -110,7 +110,7 @@ const uploadImageEpic = (action$, store) => action$.thru(select('UPLOAD_IMAGE'))
   })
   .map((results) => {
     store.dispatch({type: 'UPDATE_LOADER', payload: false})
-    return {type: 'UPDATE_UPLOAD_IMAGE', payload: results}
+    return {type: 'UPDATE_UPLOAD_IMAGE', payload: {imageUploaded: results}}
   })
   .recoverWith(e => {
     return e;

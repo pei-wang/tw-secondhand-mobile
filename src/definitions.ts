@@ -17,7 +17,7 @@ export interface User {
 }
 
 export interface Trade {
-    imageOnCloud?: string
+    imageUploaded?: string
 }
 
 export interface UserForLoginResponse {
