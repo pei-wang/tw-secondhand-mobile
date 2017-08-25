@@ -16,6 +16,10 @@ export interface User {
   registerSuccess?: boolean
 }
 
+export interface Trade {
+    imageOnCloud?: string
+}
+
 export interface UserForLoginResponse {
   username: string
   sessionToken: string
@@ -55,6 +59,8 @@ export interface Product {
     updatedAt?: string,
 }
 
+export type TradeState = Trade
+
 export type ProductState = Product[]
 
 // STATES
@@ -64,6 +70,7 @@ export type UserState = User
 export interface RootState {
     user?: UserState
     app?: AppState
+    trade: TradeState
     products?: ProductState
     orders?: ProductState
     owned?: ProductState

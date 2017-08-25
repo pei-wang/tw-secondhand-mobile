@@ -63,7 +63,7 @@ class AddItemScreen extends React.Component<AddItemProps<object>, {}> {
     }, ()=>{});
   }
 
-  uploadImage() {
+  addItem() {
     this.props.dispatch(uploadImageActionCreator(this.state.image));
   }
 
@@ -80,7 +80,7 @@ class AddItemScreen extends React.Component<AddItemProps<object>, {}> {
         <TextInput placeholder='售价￥' style={styles.textfield}/>
         <TextInput placeholder='添加描述...' multiline={true} numberOfLines = {6}
         style={styles.textArea}/>
-        <Button title='出售商品' onPress={()=>{this.uploadImage()}} textStyle={{color: 'black'}}/>
+        <Button title='出售商品' onPress={()=>{this.addItem()}} textStyle={{color: 'black'}}/>
       </View>
     )
   }

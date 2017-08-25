@@ -103,8 +103,6 @@ const fetchBoughtProductEpic = (action$, store) => action$.thru(select('FETCH_BO
     return updateOwned(results)
   })
 
-  
-
 const uploadImageEpic = (action$, store) => action$.thru(select('UPLOAD_IMAGE'))
   .chain((action1$) => {
     store.dispatch({type: 'UPDATE_LOADER', payload: true})
@@ -113,6 +111,9 @@ const uploadImageEpic = (action$, store) => action$.thru(select('UPLOAD_IMAGE'))
   .map((results) => {
     store.dispatch({type: 'UPDATE_LOADER', payload: false})
     return {type: 'UPDATE_UPLOAD_IMAGE', payload: results}
+  })
+  .recoverWith(e => {
+    return e;
   })
 
 const postProductEpic = (action$, store) => action$.thru(select('POST_PRODUCT'))

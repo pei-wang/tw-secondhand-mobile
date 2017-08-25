@@ -15,6 +15,6 @@ export const fetchJson = async (url, option) => {
       if (response.status < 400) {
         return response.json()
       }
-      return response.json()
+      throw {status: response.status, message: response.json()};
     })
 }
