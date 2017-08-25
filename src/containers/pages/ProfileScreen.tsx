@@ -37,7 +37,7 @@ class ProfileScreen extends React.Component<ProfileProps<object>, object> {
         <View style={styles.profile}>
           <Logo style={styles.logo}/>
           <View style={styles.name}>
-            <Text>{this.props.user.username}</Text>
+            <Text>{this.props.user.isLogin ? this.props.user.username: '请登录'}</Text>
           </View>
         </View>
         <View style={styles.buttons}>
