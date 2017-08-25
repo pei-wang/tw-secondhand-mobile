@@ -13,3 +13,5 @@ export const TradeReducer: Redux.Reducer<D.TradeState> = (
             return state;
     }
 };
+
+export default TradeReducer;
