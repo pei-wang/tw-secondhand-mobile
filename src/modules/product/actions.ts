@@ -123,9 +123,10 @@ const postProductEpic = (action$, store) => action$.thru(select('POST_PRODUCT'))
         store.dispatch({type: 'UPDATE_LOADER', payload: true})
         return fromPromise(postProduct(action1$.payload))
     }).map((result) => {
-        console.log(result)
         store.dispatch({type: 'UPDATE_LOADER', payload: false})
         store.dispatch({type: 'UPDATE_UPLOAD_IMAGE', payload: ''})
+        store.dispatch({type: 'UPDATE_TRADE', payload: {name: '', price: '', description: ''}})
+        store.dispatch({type: 'UPDATE_SELECTED_IMAGE', payload: undefined})
         return {type: 'FETCH_PRODUCTS'}
     })
 

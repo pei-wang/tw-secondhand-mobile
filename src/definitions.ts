@@ -18,6 +18,8 @@ export interface User {
 
 export interface Trade {
     imageUploaded?: string
+    imageSelected?: string
+    trade: object
 }
 
 export interface UserForLoginResponse {

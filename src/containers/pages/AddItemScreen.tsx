@@ -3,7 +3,7 @@ import {StyleSheet, Text, TextInput, View, Image, ImagePickerIOS, TouchableHighl
 import {connect, DispatchProp} from 'react-redux'
 import Button from '../../components/Button/Button'
 import {uploadImageActionCreator, updateProducts} from '../../modules/product/actions'
-import {updateTrade} from '../../modules/trade/actions'
+import {updateTrade, updateSelected} from '../../modules/trade/actions'
 
 const styles = StyleSheet.create({
     container: {
@@ -45,53 +45,41 @@ const styles = StyleSheet.create({
 
 type AddItemProps<S> = DispatchProp<S> & {};
 
-class AddItemScreen extends React.Component<AddItemProps<object>, {}> {
+const defaultImage = require('../resources/uploading-archive.png')
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            image: require('../resources/uploading-archive.png'),
-            description: '',
-            price: 0,
-            name: '',
-        }
-    }
+class AddItemScreen extends React.Component<AddItemProps<object>, {}> {
 
     selectImage() {
         ImagePickerIOS.openSelectDialog({}, (imageURI) => {
             const extIdx = imageURI.indexOf('ext=')
             const ext = imageURI.slice(extIdx + 'ext='.length)
             const idIdx = imageURI.indexOf('id=')
-            const fileName   = imageURI.slice(idIdx + 3, extIdx - 1)
-            this.setState({image: {uri: imageURI, name: fileName + '.' + ext, type: 'image/' + ext}})
+            const fileName = imageURI.slice(idIdx + 3, extIdx - 1)
+            const image = {uri: imageURI, name: fileName + '.' + ext, type: 'image/' + ext}
+            this.props.dispatch(updateSelected(image))
         }, () => {
         })
     }
 
     addItem() {
-        const result = this.props.dispatch(uploadImageActionCreator(this.state.image))
+        this.props.dispatch(uploadImageActionCreator(this.props.imageSelected))
     }
 
     nameChange(name) {
-        this.name = name
-        this.dispatchMerchantChange()
+        this.props.dispatch(updateTrade(name, this.props.merchant.price, this.props.merchant.description))
     }
 
     priceChange(price) {
-        this.price = Number(price) ? price : 0
-        this.dispatchMerchantChange()
+        const checkedPrice = Number(price) ? price : ''
+        this.props.dispatch(updateTrade(this.props.merchant.name, checkedPrice, this.props.merchant.description))
     }
 
-    descChange(desc) {
-        this.description = desc
-        this.dispatchMerchantChange()
-    }
-
-    dispatchMerchantChange() {
-        this.props.dispatch(updateTrade(this.name, this.price, this.description));
+    descChange(description) {
+        this.props.dispatch(updateTrade(this.props.merchant.name, this.props.merchant.price, description))
     }
 
     render() {
+        const image = this.props.imageSelected ? this.props.imageSelected : defaultImage
         return (
             <View style={styles.container}>
                 <TouchableHighlight style={styles.uploader} onPress={() => {
@@ -99,19 +87,21 @@ class AddItemScreen extends React.Component<AddItemProps<object>, {}> {
                 }}>
                     <View>
                         <Text style={{color: 'lightgray', fontSize: 20, marginBottom: 30}}>点击上传图片</Text>
-                        <Image source={this.state.image} style={{width: 100, height: 100}}/>
+                        <Image source={image} style={{width: 100, height: 100}}/>
                     </View>
                 </TouchableHighlight>
-                <TextInput placeholder='商品名称' style={styles.textfield} onChangeText={(e) => {
-                    this.nameChange(e)
-                }}/>
-                <TextInput placeholder='售价￥' style={styles.textfield} onChangeText={(e) => {
-                    this.priceChange(e)
-                }}/>
-                <TextInput placeholder='添加描述...' multiline={true} numberOfLines={6} style={styles.textArea}
+                <TextInput placeholder='商品名称' style={styles.textfield} value={this.props.merchant.name}
                            onChangeText={(e) => {
-                               this.descChange(e)
+                               this.nameChange(e)
                            }}/>
+                <TextInput placeholder='售价￥' style={styles.textfield} value={this.props.merchant.price}
+                           onChangeText={(e) => {
+                               this.priceChange(e)
+                           }}/>
+                <TextInput placeholder='添加描述...' multiline={true} numberOfLines={6} style={styles.textArea}
+                           value={this.props.merchant.description} onChangeText={(e) => {
+                    this.descChange(e)
+                }}/>
                 <Button title='出售商品' onPress={() => {
                     this.addItem()
                 }} textStyle={{color: 'black'}}/>
@@ -121,9 +111,7 @@ class AddItemScreen extends React.Component<AddItemProps<object>, {}> {
 }
 
 const mapStateToProps = (state: D.RootState) => {
-    return {
-        trade: state.trade
-    }
+    return state.trade
 }
 
 export default connect(mapStateToProps)(AddItemScreen)
