@@ -109,11 +109,11 @@ const uploadImageEpic = (action$, store) => action$.thru(select('UPLOAD_IMAGE'))
         return fromPromise(uploadImage(action1$.payload))
     })
     .map((results) => {
-        store.dispatch({type: 'UPDATE_LOADER', payload: false})
-        console.log('upload done')
         const state = store.getState()
         if (state.trade.merchant) {
             store.dispatch(createProductActionCreator(Object.assign({img: results}, state.trade.merchant)))
+        } else {
+            store.dispatch({type: 'UPDATE_LOADER', payload: false})
         }
         return {type: 'UPDATE_UPLOAD_IMAGE', payload: results}
     })

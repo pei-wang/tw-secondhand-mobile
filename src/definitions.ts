@@ -19,7 +19,8 @@ export interface User {
 export interface Trade {
     imageUploaded?: string
     imageSelected?: string
-    trade: object
+    merchant: object
+    loader: boolean
 }
 
 export interface UserForLoginResponse {

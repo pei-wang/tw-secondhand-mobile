@@ -2,7 +2,7 @@ import * as Redux from 'redux'
 import * as D from '../../definitions'
 
 export const TradeReducer: Redux.Reducer<D.TradeState> = (state: D.TradeState, action: D.ProductAction): D.TradeState => {
-    state = state || {merchant: {name: '', price: '', description: ''}}
+    state = state || {loader: false, merchant: {name: '', price: '', description: ''}}
     switch (action.type) {
         case 'UPDATE_UPLOAD_IMAGE': {
             return Object.assign({}, state, {imageUploaded: action.payload})
@@ -12,6 +12,9 @@ export const TradeReducer: Redux.Reducer<D.TradeState> = (state: D.TradeState, a
         }
         case 'UPDATE_SELECTED_IMAGE': {
             return Object.assign({}, state, {imageSelected: action.payload})
+        }
+        case 'UPDATE_LOADER': {
+            return Object.assign({}, state, {loader: action.payload})
         }
         default:
             return state

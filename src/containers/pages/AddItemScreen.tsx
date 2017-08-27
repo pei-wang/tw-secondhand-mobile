@@ -2,11 +2,13 @@ import * as React from 'react'
 import {StyleSheet, Text, TextInput, View, Image, ImagePickerIOS, TouchableHighlight} from 'react-native'
 import {connect, DispatchProp} from 'react-redux'
 import Button from '../../components/Button/Button'
-import {uploadImageActionCreator, updateProducts} from '../../modules/product/actions'
+import OperatingOverlay from './OperatingOverlay'
+import {uploadImageActionCreator} from '../../modules/product/actions'
 import {updateTrade, updateSelected} from '../../modules/trade/actions'
 
 const styles = StyleSheet.create({
     container: {
+        position: 'relative',
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
@@ -41,11 +43,37 @@ const styles = StyleSheet.create({
         borderColor: '#A4A4A4',
         borderWidth: 1
     },
+
+    overlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    overlayBackground: {
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '130%',
+        backgroundColor: 'white',
+        opacity: 0.9,
+    },
+
+    operatingImage: {
+        width: 100,
+        height: 100,
+        top: '-70%',
+    }
 })
 
 type AddItemProps<S> = DispatchProp<S> & {};
 
-const defaultImage = require('../resources/uploading-archive.png')
+const uploadDefaultImage = require('../resources/uploading-archive.png')
+const operatingImage = require('../resources/operating.gif')
 
 class AddItemScreen extends React.Component<AddItemProps<object>, {}> {
 
@@ -79,7 +107,7 @@ class AddItemScreen extends React.Component<AddItemProps<object>, {}> {
     }
 
     render() {
-        const image = this.props.imageSelected ? this.props.imageSelected : defaultImage
+        const image = this.props.imageSelected ? this.props.imageSelected : uploadDefaultImage
         return (
             <View style={styles.container}>
                 <TouchableHighlight style={styles.uploader} onPress={() => {
@@ -105,6 +133,7 @@ class AddItemScreen extends React.Component<AddItemProps<object>, {}> {
                 <Button title='出售商品' onPress={() => {
                     this.addItem()
                 }} textStyle={{color: 'black'}}/>
+                {this.props.loader && <OperatingOverlay/>}
             </View>
         )
     }
