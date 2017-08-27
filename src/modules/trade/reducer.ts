@@ -5,7 +5,7 @@ export const TradeReducer: Redux.Reducer<D.TradeState> = (state: D.TradeState, a
     state = state || {}
     switch (action.type) {
         case 'UPDATE_UPLOAD_IMAGE': {
-            return Object.assign({}, state, {imageOnCloud: action.payload})
+            return Object.assign({}, state, {imageUploaded: action.payload})
         }
         case 'UPDATE_TRADE': {
             return Object.assign({}, state, {merchant: action.payload})

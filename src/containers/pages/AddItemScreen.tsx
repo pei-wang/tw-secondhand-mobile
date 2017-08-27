@@ -62,14 +62,14 @@ class AddItemScreen extends React.Component<AddItemProps<object>, {}> {
             const extIdx = imageURI.indexOf('ext=')
             const ext = imageURI.slice(extIdx + 'ext='.length)
             const idIdx = imageURI.indexOf('id=')
-            const fileName = imageURI.slice(idIdx + 3, extIdx - 1)
+            const fileName   = imageURI.slice(idIdx + 3, extIdx - 1)
             this.setState({image: {uri: imageURI, name: fileName + '.' + ext, type: 'image/' + ext}})
         }, () => {
         })
     }
 
     addItem() {
-        this.props.dispatch(uploadImageActionCreator(this.state.image))
+        const result = this.props.dispatch(uploadImageActionCreator(this.state.image))
     }
 
     nameChange(name) {
@@ -78,7 +78,7 @@ class AddItemScreen extends React.Component<AddItemProps<object>, {}> {
     }
 
     priceChange(price) {
-        this.price = price ? Number.parseFloat(price) : 0
+        this.price = Number(price) ? price : 0
         this.dispatchMerchantChange()
     }
 

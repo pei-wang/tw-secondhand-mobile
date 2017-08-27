@@ -110,17 +110,20 @@ const uploadImageEpic = (action$, store) => action$.thru(select('UPLOAD_IMAGE'))
     })
     .map((results) => {
         store.dispatch({type: 'UPDATE_LOADER', payload: false})
-        return {type: 'UPDATE_UPLOAD_IMAGE', payload: {imageUploaded: results}}
-    })
-    .then((results) => {
-        console.log(results)
+        console.log('upload done')
+        const state = store.getState()
+        if (state.trade.merchant) {
+            store.dispatch(createProductActionCreator(Object.assign({img: results}, state.trade.merchant)))
+        }
+        return {type: 'UPDATE_UPLOAD_IMAGE', payload: results}
     })
 
 const postProductEpic = (action$, store) => action$.thru(select('POST_PRODUCT'))
     .chain((action1$) => {
         store.dispatch({type: 'UPDATE_LOADER', payload: true})
         return fromPromise(postProduct(action1$.payload))
-    }).map(() => {
+    }).map((result) => {
+        console.log(result)
         store.dispatch({type: 'UPDATE_LOADER', payload: false})
         store.dispatch({type: 'UPDATE_UPLOAD_IMAGE', payload: ''})
         return {type: 'FETCH_PRODUCTS'}
