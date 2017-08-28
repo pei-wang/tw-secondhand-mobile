@@ -17,17 +17,26 @@ export const userLogin = (user: D.UserForLogin): D.UserAction => ({type: USER_LO
 export const userSignUp = (user: D.UserForLogin): D.UserAction => ({type: USER_SIGN_UP, payload: user})
 export const userLogout = (): D.UserAction => ({type: USER_LOGOUT})
 
-const loginEpic: Epic<D.GeneralAction> = (action$, store) => action$.thru(select(USER_LOGIN))
-  .chain((action: D.UserAction) => fromPromise(login(action.payload)))
-  .map((loginResponse: null | D.UserForLoginResponse) => {
-    AsyncStorage.setItem('username', loginResponse.username)
-    AsyncStorage.setItem('sessionToken', loginResponse.sessionToken)
-    if (loginResponse) {
-      return {type: USER_LOGIN_SUC, payload: loginResponse}
-    } else {
-      return {type: USER_LOGIN_FAIL}
-    }
-  })
+const loginEpic: Epic<D.GeneralAction> = (action$, store) => {
+  let isError = false
+  return action$.thru(select(USER_LOGIN))
+    .chain((action: D.UserAction) => fromPromise(login(action.payload).catch((e) => {
+      isError = true
+      return e
+    })))
+    .map((loginResponse: null | D.UserForLoginResponse) => {
+      if (isError) {
+        return {type: 'Error', payload: 'login failure'}
+      }
+      AsyncStorage.setItem('username', loginResponse.username)
+      AsyncStorage.setItem('sessionToken', loginResponse.sessionToken)
+      if (loginResponse) {
+        return {type: USER_LOGIN_SUC, payload: loginResponse}
+      } else {
+        return {type: USER_LOGIN_FAIL}
+      }
+    })
+}
 const signUpEpic: Epic<D.GeneralAction> = (action$, store) => action$.thru(select(USER_SIGN_UP))
   .chain((action: D.UserAction) => fromPromise(signUp(action.payload)))
   .map((signUpResponse: null | D.User) => {
@@ -38,13 +47,19 @@ const signUpEpic: Epic<D.GeneralAction> = (action$, store) => action$.thru(selec
     }
   })
 
-const logoutEpic: Epic<D.GeneralAction> = (action$, store) => action$.thru(select(USER_LOGOUT))
-  .chain((action: D.UserAction) => fromPromise(logout()))
-  .map(() => {
-    AsyncStorage.setItem('username', '')
-    AsyncStorage.setItem('sessionToken', '')
-    return {type: USER_LOGOUT_SUC}
-  })
+const logoutEpic: Epic<D.GeneralAction> = (action$, store) => {
+  let isError = false
+  return action$.thru(select(USER_LOGOUT))
+    .chain((action: D.UserAction) => fromPromise(logout().catch((e) => {
+      isError = true
+      return e
+    })))
+    .map((response) => {
+      AsyncStorage.setItem('username', '')
+      AsyncStorage.setItem('sessionToken', '')
+      return {type: USER_LOGOUT_SUC}
+    })
+}
 
 export const epics: Array<Epic<D.GeneralAction>> = [
   loginEpic,
